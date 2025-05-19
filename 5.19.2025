@@ -2,38 +2,41 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 
-def interfaz_uno():
+#Se sustituyeron algunos textos y se cambio el nombre a la función
+def menu_de_bienvenida():
     area_dinamica_limpia()
     tk.Label(area_dinamica, text="Aquí va un mensaje de bienvenida", font=("Arial", 14)).pack(pady=10)
-    tk.Button(area_dinamica, text="Botón 1", command=lambda: messagebox.showinfo("Título", "Mensaje temporal")).pack()
+    tk.Button(area_dinamica, text="Mostrar mensaje de bienvenida", command=lambda: messagebox.showinfo("Bienvenido", "Hola, este es un nuevo programa")).pack()
 
-def interfaz_dos():
+#Se sustituyeron algunas etiquetas de texto y se modificaron el nombre de las opciones a elegir en la lista desplegable y las casillas y se cambio el nombre de la función 
+def datos_del_alumno():
     area_dinamica_limpia()
-    tk.Label(area_dinamica, text="Aquí coloca un letrero o label que identifique al alumno", font=("Arial", 14)).pack(pady=10)
+    tk.Label(area_dinamica, text="Ingresa los datos del alumno", font=("Arial", 14)).pack(pady=10)
 
-    tk.Label(area_dinamica, text="Campo A:").pack()
+    tk.Label(area_dinamica, text="Nombre del alumno(a):").pack()
     campo_texto_uno = tk.Entry(area_dinamica)
     campo_texto_uno.pack(pady=5)
 
-    tk.Label(area_dinamica, text="Selección A:").pack()
-    opcion_elegida = tk.StringVar(value="Opción 1")
-    tk.Radiobutton(area_dinamica, text="Opción 1", variable=opcion_elegida, value="Opción 1").pack()
-    tk.Radiobutton(area_dinamica, text="Opción 2", variable=opcion_elegida, value="Opción 2").pack()
+    tk.Label(area_dinamica, text="Grupo:").pack()
+    opcion_elegida = tk.StringVar(value="a")
+    tk.Radiobutton(area_dinamica, text="a", variable=opcion_elegida, value="a").pack()
+    tk.Radiobutton(area_dinamica, text="b", variable=opcion_elegida, value="b").pack()
 
-    tk.Label(area_dinamica, text="Lista desplegable:").pack()
-    combo = ttk.Combobox(area_dinamica, values=["Uno", "Dos", "Tres"])
+    tk.Label(area_dinamica, text="Grado:").pack()
+    combo = ttk.Combobox(area_dinamica, values=["Segundo", "Cuarto", "Sexto"])
     combo.pack()
     combo.current(0)
 
-    def accion_guardar():
+    def guardar_info_de_alumnos():
         valor = campo_texto_uno.get()
-        messagebox.showinfo("Revisión", f"Texto: {valor}\nSelección: {opcion_elegida.get()}\nLista: {combo.get()}")
+        messagebox.showinfo("Revisión", f"Texto: {valor}\nGrupo: {opcion_elegida.get()}\nGrado: {combo.get()}")
 
-    tk.Button(area_dinamica, text="Botón 2", command=accion_guardar).pack(pady=10)
+    tk.Button(area_dinamica, text="Guardar datos", command=guardar_info_de_alumnos).pack(pady=10)
 
-def interfaz_tres():
+#Cambio de nombre en la función
+def cambiar_fondo_color():
     area_dinamica_limpia()
-    tk.Label(area_dinamica, text="Configuraciones temporales", font=("Arial", 14)).pack(pady=10)
+    tk.Label(area_dinamica, text="Seleccione el color de su preferencia", font=("Arial", 14)).pack(pady=10)
 
     colores = ["lightblue", "lightgreen", "lightyellow", "lightgray"]
     tk.Label(area_dinamica, text="Cambiar fondo:").pack()
@@ -46,7 +49,8 @@ def interfaz_tres():
     for c in colores:
         tk.Button(area_dinamica, text=c, bg=c, width=20, command=lambda col=c: cambiar_color(col)).pack(pady=2)
 
-def interfaz_cuatro():
+#cambio al nombre de la función 
+def cuestionario():
     area_dinamica_limpia()
     tk.Label(area_dinamica, text="Texto de ayuda que el alumno debe mejorar", font=("Arial", 14)).pack(pady=10)
     contenido = (
@@ -57,7 +61,7 @@ def interfaz_cuatro():
         "- ¿Qué debes renombrar?"
     )
     tk.Label(area_dinamica, text=contenido, justify="left").pack(pady=10)
-
+#espaciado entre etiquetas de texto
 def area_dinamica_limpia():
     for widget in area_dinamica.winfo_children():
         widget.destroy()
@@ -73,11 +77,13 @@ menu_lateral.pack(side="left", fill="y")
 area_dinamica = tk.Frame(ventana_principal, bg="white")
 area_dinamica.pack(side="right", expand=True, fill="both")
 
-tk.Button(menu_lateral, text="Pantalla 1", command=interfaz_uno, width=15).pack(pady=10)
-tk.Button(menu_lateral, text="Pantalla 2", command=interfaz_dos, width=15).pack(pady=10)
-tk.Button(menu_lateral, text="Pantalla 3", command=interfaz_tres, width=15).pack(pady=10)
-tk.Button(menu_lateral, text="Pantalla 4", command=interfaz_cuatro, width=15).pack(pady=10)
+
+#se cambio el nombre a los botones de las otras interfaces
+tk.Button(menu_lateral, text="Inicio", command=menu_de_bienvenida, width=15).pack(pady=10)
+tk.Button(menu_lateral, text="Ingresa los datos", command=datos_del_alumno, width=15).pack(pady=10)
+tk.Button(menu_lateral, text="Fondo de interfaz", command=cambiar_fondo_color, width=15).pack(pady=10)
+tk.Button(menu_lateral, text="Preguntas", command=cuestionario, width=15).pack(pady=10)
 tk.Button(menu_lateral, text="Salir", command=ventana_principal.destroy, width=15).pack(pady=30)
 
-interfaz_uno()
+menu_de_bienvenida()
 ventana_principal.mainloop()
